@@ -7,12 +7,21 @@ problem = "32 + 8"
 # ----    
 #   40    
 
+def problemSolver(problem):
+    pieces = problem.split()
+    print(pieces)
+
+problemSolver(problem)
+
 # answer --
 # produce answer to get all pieces 
 # split 
 # operator table 
 # format -- 
 # indentation based on longest operand
+# single space between operator and longest operand 
+# operator will be on lowest line
+# dashes underline problem 
 # 4 spaces between problems
 
 # loop
