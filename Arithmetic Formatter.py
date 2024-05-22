@@ -18,11 +18,12 @@ key = {
     '-': ops.sub
 }
 
-def pad(str, paddding):
-    # append padding, slice from end 
-    pass
+def pad(str, padding):
+    # python string format method 
+    padded = f'{str:{' '}{'>'}{padding}}'
+    return padded
 
-def solve_problems(problems):
+def solve_problems(problems, show_answer):
     problems_formatted = []
     for i in range(len(problems)):
         problems[i] = problems[i].split()
@@ -30,22 +31,26 @@ def solve_problems(problems):
         operand_two = problems[i][2]
         operator = problems[i][1]
         solution = str(key[operator](int(operand_one), int(operand_two)))
-        problems[i].append(solution) # to compare length 
 
-        problems_formatted.append([])
+        # append formatted problem
+        # pad twice: length, length + 4
         return_length = lambda l : len(l)
         length = len(max(problems[i], key = return_length)) + 2 # + 2 for space operator + space
-        # pad twice, once for length, another 4
-        # append to list 
-
-        # combine operator and operand_two
-        # add line
-
+        formatted = []
+        formatted.append(pad(pad(operand_one, length), length + 4))
+        formatted.append(pad(operator + pad(operand_two, length - 1), length + 4))
+        formatted.append(pad('-' * length, length + 4)) 
+        formatted.append(pad(pad(solution, length), length + 4))
+        problems_formatted.append(formatted)
+        
     # remove spaces from first problem and add line breaks to last 
+    for i in range(len(problems_formatted[-1])):
+        pass
+    # remove answer if show_answer false
 
-    # print(problems, problems_formatted)
+    print(problems_formatted)
 
-solve_problems(problems)
+solve_problems(problems, True)
 
 # answer --
 # solve to get all pieces 
@@ -58,4 +63,3 @@ solve_problems(problems)
 # operator will be on lowest line
 # dashes underline problem 
 # 4 spaces between problems
-
