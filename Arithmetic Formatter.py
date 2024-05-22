@@ -1,5 +1,6 @@
 import operator as ops
 # print(ops.add(1,1))
+import re
 
 problems = ["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"]
 #   32         1      9999      523
@@ -23,7 +24,17 @@ def pad(str, padding):
     padded = f'{str:{' '}{'>'}{padding}}'
     return padded
 
-def solve_problems(problems, show_answer):
+def solve_problems(problems, show_answer = False):
+    # validation 
+    if len(problems) > 5:
+        return 'Error: Too many problems.'
+    if re.search('[*/]', ' '.join(problems)):
+        return "Error: Operator must be '+' or '-'."
+    if re.search('[a-zA-Z]', ' '.join(problems)):
+        return 'Error: Numbers must only contain digits.'
+    if re.search(r'\d{5}', ' '.join(problems)):
+        return 'Error: Numbers cannot be more than four digits.'
+
     problems_formatted = []
     for i in range(len(problems)):
         problems[i] = problems[i].split()
@@ -44,13 +55,25 @@ def solve_problems(problems, show_answer):
         problems_formatted.append(formatted)
         
     # remove spaces from first problem and add line breaks to last 
-    for i in range(len(problems_formatted[-1])):
-        pass
+    for j in range(len(problems_formatted[-1])):
+        problems_formatted[-1][j] += '\n'
+    for k in range(len(problems_formatted[0])):
+        problems_formatted[0][k] = re.sub('^    ', '', problems_formatted[0][k]) 
+
+    # flatten list and join
+    problem_lines = []
+    for l in range(len(problems_formatted[0])):
+        for m in range(len(problems_formatted)):
+            problem_lines.append(problems_formatted[m][l])
+
     # remove answer if show_answer false
+    if not show_answer:
+        problem_lines = problem_lines[:-len(problems_formatted)]
 
-    print(problems_formatted)
+    return ''.join(problem_lines)
 
-solve_problems(problems, True)
+# solve_problems(problems, True)
+print(solve_problems(["32 + 8", "1 - 3801", "9999 + 99991", "523 - 49"]))
 
 # answer --
 # solve to get all pieces 
