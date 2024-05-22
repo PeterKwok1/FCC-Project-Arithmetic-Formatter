@@ -2,7 +2,7 @@ import operator as ops
 # print(ops.add(1,1))
 import re
 
-problems = ["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"]
+problems = ["3801 - 2", "123 + 49"]
 #   32         1      9999      523
 # +  8    - 3801    + 9999    -  49
 # ----    ------    ------    -----
@@ -21,10 +21,10 @@ key = {
 
 def pad(str, padding):
     # python string format method 
-    padded = f'{str:{' '}{'>'}{padding}}'
+    padded = f"{str:{' '}{'>'}{padding}}"
     return padded
 
-def solve_problems(problems, show_answer = False):
+def solve_problems(problems, show_answers = False):
     # validation 
     if len(problems) > 5:
         return 'Error: Too many problems.'
@@ -66,14 +66,16 @@ def solve_problems(problems, show_answer = False):
         for m in range(len(problems_formatted)):
             problem_lines.append(problems_formatted[m][l])
 
-    # remove answer if show_answer false
-    if not show_answer:
+    # remove answer if show_answers false
+    if not show_answers:
         problem_lines = problem_lines[:-len(problems_formatted)]
+
+    # remove last line break 
+    problem_lines[-1] = re.sub('\n$', '', problem_lines[-1])
 
     return ''.join(problem_lines)
 
-# solve_problems(problems, True)
-print(solve_problems(["32 + 8", "1 - 3801", "9999 + 99991", "523 - 49"]))
+print(solve_problems(problems))
 
 # answer --
 # solve to get all pieces 
