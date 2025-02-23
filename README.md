@@ -1,6 +1,7 @@
 
 # Arithmetic Formatter
 
+## Description
 Formats arithmetic expressions vertically. 
 
 ```
@@ -13,8 +14,5 @@ output =
    40     -3800     19998      474
 ```
 
-For the purpose of reviewing python to follow coursework. 
-
-
-
-
+## Purpose
+To review python to follow CSE 312.
